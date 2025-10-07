@@ -1,7 +1,3 @@
-Here’s your rewritten **README-format introduction and table of contents** for your developer guide — formatted cleanly for GitHub or documentation sites:
-
----
-
 # 🤖 **The AI-Powered Recruiter**
 
 ### *A Developer’s Guide to Building AI-Powered Mobile Recruitment Apps*
