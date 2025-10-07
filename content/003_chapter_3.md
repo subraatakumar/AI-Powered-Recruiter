@@ -91,9 +91,3 @@ This balance between **cloud intelligence** and **local inference** creates a **
 
 ---
 
-## 🚀 Next Chapter: Setting Up the Backend
-
-In **Chapter 4: Setting Up the Node.js Server and PostgreSQL with pgvector**,
-we’ll begin implementing the **core backend**, connecting all these layers into a **secure, scalable pipeline** ready for production.
-
----
