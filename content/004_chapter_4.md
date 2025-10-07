@@ -159,8 +159,3 @@ This disciplined, **agent-driven development workflow** allows you to move fast,
 ---
 
 
-**Chapter 5 — Implementing the Node.js RAG Backend (Part 1): Server and Database Setup**
-
-We’ll now set up the **backend environment**, configure **PostgreSQL with pgvector**, and establish the foundation for the **RAG-powered recruiter backend**.
-
----
