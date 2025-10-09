@@ -53,7 +53,7 @@ Application:
 Tips:
 
 - Preserve semantic boundaries when possible (skills block, job entry).
-- Consider overlap between chunks (sliding window) to avoid cutting relevant context.
+- [Consider overlap between chunks (sliding window) to avoid cutting relevant context.](https://github.com/subraatakumar/AI-Powered-Recruiter/blob/main/content/explanations/overlaping_chunks.md)
 
 ### 2) Embedding — Giving Text a Numeric Fingerprint
 
