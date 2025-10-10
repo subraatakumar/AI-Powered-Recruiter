@@ -59,41 +59,8 @@ This process must be fast (under 1 second) for a responsive user experience.
 
 ---
 
-This blueprint provides a clear, scalable, and beginner-friendly overview of the AI-Powered Recruiter system. It is ready for real-world implementation.
-
-## V. Scalability for Large Datasets
-
-### Can This System Handle Millions of Records?
-
-Yes, with the following considerations and optimizations:
-
-- **Database Layer:** PostgreSQL with `pgvector` is suitable for thousands to tens of thousands of records. For millions, you should:
-  - Use advanced indexing (GIN, IVF, HNSW for vectors)
-  - Ensure sufficient hardware resources (RAM, CPU)
-  - Consider partitioning/sharding for continued growth
-  - Evaluate dedicated vector databases (e.g., Pinecone, Weaviate) for extreme scale and low-latency search
-- **API Layer:** Node.js (Express) can handle high concurrency if optimized (clustering, load balancing, async processing)
-- **RAG Pipeline:** Asynchronous processing (with Redis queues) is good for slow tasks. For millions of records, batch processing and distributed workers are recommended
-- **Query Performance:** Vector search in PostgreSQL is fast for moderate datasets. For millions, query latency may increase unless you use advanced indexing and hardware scaling
-- **Cloud LLM Bottleneck:** Latency is mostly dependent on external LLM APIs, not your infrastructure
-
-**Conclusion:**
-
-This architecture will work for millions of records with the above optimizations. If latency or scaling becomes an issue, consider moving to a dedicated vector database and distributed processing.
+This blueprint provides a clear, scalable, and beginner-friendly overview of the AI-Powered Recruiter system. It is ready for technical interviews and real-world implementation.
 
 ---
 
-## VI. Example Use Cases
-
-This system design can be implemented for:
-
-1. Recruitment Platforms (resumes, job matching)
-2. Court Case Databases (legal document search, case retrieval)
-3. Academic Paper Search (researcher queries, semantic search)
-4. Medical Record Retrieval (patient history, diagnosis support)
-5. Customer Support Knowledge Bases (FAQ, ticket resolution)
-6. Patent Search Systems (intellectual property retrieval)
-7. Real Estate Listings (property matching, semantic queries)
-8. E-commerce Product Search (recommendations, similarity search)
-9. News Article Aggregators (topic clustering, semantic ranking)
-10. Internal Enterprise Document Search (policy, compliance, HR docs)
+Ready to proceed with **Chapter 6: Implementing the Node.js RAG Backend (Part 1) – Server and Database Setup**?
