@@ -23,4 +23,6 @@ You’ll learn how to transform messy, unstructured resume data into a structure
 | **Chapter 5** | [**Backend Specification and Setup Blueprint**](https://github.com/subraatakumar/AI-Powered-Recruiter/blob/main/content/005_chapter_5.md)                                 | Node.js backend requirements, technology stack, functional and non-functional specs                                                                                                                                                     |
 | **Chapter 6** | [**Implementing the Node.js RAG Backend (Part 1) – Server and Database Setup**](https://github.com/subraatakumar/AI-Powered-Recruiter/blob/main/content/006_chapter_6.md) | Secure backend setup, environment initialization, database schema                                                                                                                                                                       |
 
----
+## Join Tech Craft Club on Discord
+
+[Click here to join our Discord community!](https://discord.gg/QFGDrXC8)
