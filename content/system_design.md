@@ -6,6 +6,8 @@ Our system employs a **Hybrid AI Architecture** designed for security, scalabili
 
 ![](https://github.com/subraatakumar/AI-Powered-Recruiter/blob/main/content/images/Gemini_Generated_Image_onys2zonys2zonys.png)
 
+**Note on Visual Clarity:** Please refer to the detailed specification text for complete clarity, as the legibility of embedded labels in the generated diagram may vary due to the limitations of the AI rendering process.
+
 ### 1. High-Level Architecture (The Three Layers)
 
 We operate on three distinct technological layers:
