@@ -62,5 +62,3 @@ This process must be fast (under 1 second) for a responsive user experience.
 This blueprint provides a clear, scalable, and beginner-friendly overview of the AI-Powered Recruiter system. It is ready for technical interviews and real-world implementation.
 
 ---
-
-Ready to proceed with **Chapter 6: Implementing the Node.js RAG Backend (Part 1) – Server and Database Setup**?
