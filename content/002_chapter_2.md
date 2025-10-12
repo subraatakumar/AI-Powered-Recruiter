@@ -239,10 +239,28 @@ We’ll provide sample data pipelines, code snippets, and an end‑to‑end diag
 
 ---
 
-Appendix: Quick Reference
+## FAQ
 
-- Chunk size: 200–500 words
-- Retrieval K: 10–50
-- Storage: pgvector for prototyping; FAISS/Milvus for scale
-- Similarity metric: cosine similarity (common default)
-- Embedding model: use the same model for both document and query embeddings
+**Q1: Does converting candidate data to vectors require using LLMs?**
+
+**A:** Yes, converting candidate data—such as resumes or job descriptions—into vectors typically involves using a Large Language Model (LLM) or a specialized embedding model. Here’s a beginner-friendly explanation:
+
+When you want a computer to understand and compare the meaning of text (not just match keywords), you need to turn that text into a format it can process mathematically. This is done by creating a “vector”—a list of numbers that represents the meaning of the text. To generate these vectors, you use an embedding model, which is often a smaller, specialized version of an LLM. The model reads the text and produces a unique vector for each chunk of information (for example, a candidate’s skills section or a job requirement).
+
+This process is called “embedding.” It’s important to note that embedding is a one-time operation for each piece of data. Once a candidate’s resume is embedded and stored in the vector database, you don’t need to re-embed it unless the data changes. This is much more efficient than sending the entire resume to an LLM every time you want to search or rank candidates. Embedding models are designed to be fast and cost-effective, so the cost per candidate is low compared to full LLM inference.
+
+**Q2: If vector databases cost money, how does RAG reduce overall cost?**
+
+**A:** It’s true that using a vector database (like pgvector, Pinecone, or FAISS) involves some cost for storing and searching vectors. However, the main advantage of RAG (Retrieval-Augmented Generation) is that it dramatically reduces the much higher costs associated with LLM usage.
+
+Here’s why:
+
+- **Vector databases are optimized for speed and efficiency.** They can quickly search through thousands or millions of vectors to find the most relevant matches for a query. The cost of storing and searching vectors is generally much lower than the cost of running LLM queries, especially as your data grows.
+
+- **RAG minimizes LLM usage.** Instead of sending all candidate data to the LLM for every search or ranking operation, RAG uses the vector database to filter out only the most relevant candidates (for example, the top 10 or 20 matches). Only these selected candidates are sent to the LLM for deeper analysis and ranking. This means you pay LLM costs for a tiny fraction of your data, not the whole database.
+
+- **Lower token usage means lower LLM bills.** LLMs charge based on the number of tokens (words or pieces of words) processed. By narrowing the input to just the best matches, RAG keeps token usage—and costs—low.
+
+- **One-time embedding cost vs. repeated LLM cost.** Embedding each candidate is a one-time cost when they enter the system. In contrast, running LLM inference for every candidate, every time you search, would be extremely expensive and slow.
+
+**In summary:** Vector databases do add a small cost, but they enable you to use LLMs in a much more targeted and efficient way. RAG makes large-scale, AI-powered recruitment affordable by combining fast, cheap retrieval with selective, high-value LLM analysis.
