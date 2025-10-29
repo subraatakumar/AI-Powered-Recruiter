@@ -98,6 +98,10 @@ app.get("/", (req, res) => {
   res.send("AI-Powered Recruiter Backend is running!");
 });
 
+// Candidate routes
+const candidatesRouter = require("./routes/candidates");
+app.use("/api/candidates", candidatesRouter);
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
