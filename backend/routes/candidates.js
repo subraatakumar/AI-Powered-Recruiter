@@ -28,14 +28,16 @@ const upload = multer({
  * /api/candidates/upload:
  *   post:
  *     summary: Upload a candidate PDF resume
- *     consumes:
- *       - multipart/form-data
- *     parameters:
- *       - in: formData
- *         name: file
- *         type: file
- *         required: true
- *         description: The PDF resume file to upload
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The PDF resume file to upload
  *     responses:
  *       200:
  *         description: Resume uploaded successfully
