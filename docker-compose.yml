@@ -1,0 +1,28 @@
+# Docker Compose for pgvector-enabled PostgreSQL
+# Notes:
+# - The 'version' key is obsolete in modern Compose; removed for clarity.
+# - Uses ankane/pgvector image which includes the pgvector extension preinstalled.
+# - Persistent data stored in named volume 'pgdata'. Remove with `docker compose down -v` to wipe.
+services:
+  db:
+    image: ankane/pgvector
+    container_name: pgvector-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: secretpw
+      POSTGRES_USER: rag_admin
+      POSTGRES_DB: recruiter_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Mount init scripts so extension is created automatically on first init
+      - ./docker/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "rag_admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+volumes:
+  pgdata:
