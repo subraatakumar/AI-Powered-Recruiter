@@ -316,6 +316,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     message: "Resume uploaded, parsed, chunked and embeddings stored.",
     filename: req.file.filename,
     chunksStored: chunks.length,
+    candidateId: candidateId,
   });
 });
 
@@ -347,8 +348,11 @@ router.get("/:id/chunks", async (req, res) => {
   if (cand.rows.length === 0) {
     return res.status(404).json({ error: "Candidate not found" });
   }
+  // pgvector type does not support array_length(); we know dimension (64). If float8[] fallback, we can get array_length.
   const chunks = await pool.query(
-    "SELECT chunk_index, LEFT(chunk_text, 300) AS preview, array_length(embedding, 1) AS emb_dim FROM candidate_chunks WHERE candidate_id = $1 ORDER BY chunk_index",
+    USE_PGVECTOR
+      ? "SELECT chunk_index, LEFT(chunk_text, 300) AS preview, 64 AS emb_dim FROM candidate_chunks WHERE candidate_id = $1 ORDER BY chunk_index"
+      : "SELECT chunk_index, LEFT(chunk_text, 300) AS preview, array_length(embedding,1) AS emb_dim FROM candidate_chunks WHERE candidate_id = $1 ORDER BY chunk_index",
     [id]
   );
   res.json({ candidate: cand.rows[0], chunks: chunks.rows });
