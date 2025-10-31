@@ -340,10 +340,20 @@ router.post("/upload", upload.single("file"), async (req, res) => {
  */
 router.get("/:id/chunks", async (req, res) => {
   const { id } = req.params;
+  // Validate id: must be positive integer within 32-bit signed range
+  if (!/^\d+$/.test(id)) {
+    return res.status(400).json({ error: "Invalid candidate id format" });
+  }
+  const idNum = Number(id);
+  if (idNum < 1 || idNum > 2147483647) {
+    return res
+      .status(400)
+      .json({ error: "Candidate id out of acceptable range" });
+  }
   // Basic candidate check
   const cand = await pool.query(
     "SELECT id, name, email, jobid, resume_path, created_at FROM candidates WHERE id = $1",
-    [id]
+    [idNum]
   );
   if (cand.rows.length === 0) {
     return res.status(404).json({ error: "Candidate not found" });
@@ -353,7 +363,7 @@ router.get("/:id/chunks", async (req, res) => {
     USE_PGVECTOR
       ? "SELECT chunk_index, LEFT(chunk_text, 300) AS preview, 64 AS emb_dim FROM candidate_chunks WHERE candidate_id = $1 ORDER BY chunk_index"
       : "SELECT chunk_index, LEFT(chunk_text, 300) AS preview, array_length(embedding,1) AS emb_dim FROM candidate_chunks WHERE candidate_id = $1 ORDER BY chunk_index",
-    [id]
+    [idNum]
   );
   res.json({ candidate: cand.rows[0], chunks: chunks.rows });
 });
