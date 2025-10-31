@@ -368,4 +368,40 @@ router.get("/:id/chunks", async (req, res) => {
   res.json({ candidate: cand.rows[0], chunks: chunks.rows });
 });
 
+/**
+ * @swagger
+ * /api/candidates/with-chunks:
+ *   get:
+ *     summary: List all candidates that have stored chunk data
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Max number of candidates to return (default 50)
+ *     responses:
+ *       200:
+ *         description: Array of candidate records with chunk counts
+ */
+router.get("/with-chunks", async (req, res) => {
+  let { limit } = req.query;
+  if (limit === undefined || !/^\d+$/.test(limit)) limit = 50;
+  const limNum = Math.min(Number(limit), 500); // hard cap
+  try {
+    const rows = await pool.query(
+      `SELECT c.id, c.name, c.email, c.jobid, c.resume_path, c.created_at, COUNT(ch.id) AS chunk_count
+       FROM candidates c
+       JOIN candidate_chunks ch ON ch.candidate_id = c.id
+       GROUP BY c.id
+       ORDER BY c.created_at DESC
+       LIMIT $1`,
+      [limNum]
+    );
+    res.json({ total: rows.rows.length, candidates: rows.rows });
+  } catch (err) {
+    console.error("[with-chunks] query failed", err);
+    res.status(500).json({ error: "Failed to fetch candidates with chunks" });
+  }
+});
+
 module.exports = router;
